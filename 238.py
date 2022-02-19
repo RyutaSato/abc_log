@@ -41,7 +41,7 @@ def c_238():
     return print(ans % 998244353)
 
 
-
+# WA
 def d_238():
     n = int(input())
     for _ in range(n):
@@ -87,7 +87,3 @@ def d_238():
             i += 1
         print('Yes') if is_ans else print('No')
 
-
-
-if __name__ == '__main__':
-    d_238()
