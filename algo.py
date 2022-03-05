@@ -148,17 +148,19 @@ def code020():
                             cnt += 1
     return print(cnt)
 
+
 def code021():
     """
     Combination
     """
     n, r = map(int, input().split())
     ans = 1
-    for i in range(n, n-r, -1):
+    for i in range(n, n - r, -1):
         ans *= i
-    for i in range(1, r+1):
+    for i in range(1, r + 1):
         ans //= i
     return print(ans)
+
 
 def code022():
     """
@@ -178,12 +180,14 @@ def code022():
     ans += cnt_li[50000] * (cnt_li[50000] - 1) // 2
     return print(ans)
 
+
 def code023():
     n = int(input())
     b_li = list(map(int, input().split()))
     r_li = list(map(int, input().split()))
     ans = (sum(b_li) + sum(r_li)) / n
     return print(ans)
+
 
 def code024():
     n = int(input())
@@ -192,6 +196,7 @@ def code024():
         p, q = map(int, input().split())
         ans += q / p
     return print(ans)
+
 
 def code025():
     n = int(input())
@@ -202,30 +207,55 @@ def code025():
         ans += (a_li[i] / 3) + (b_li[i] * 2 / 3)
     return print(ans)
 
+
 def code026():
     """
     n種類を等確率で全種類集めるまでにかかるコストの期待値
     :return:
     """
     n = int(input())
-    ans =0.0
+    ans = 0.0
     for i in range(1, n + 1):
         ans += n / i
     return print(ans)
 
-def merge_sort(li):
-    if len(li) < 4:
+
+def merge_sort(li: list) -> list:
+    if len(li) == 1:
+        return li
+    left = merge_sort(li[:len(li) // 2])
+    right = merge_sort(li[len(li) // 2:])
+    p, lp, rp = 0, 0, 0
+    while p < len(li):
+        if lp >= len(left) or (rp < len(right) and right[rp] < left[lp]):
+            li[p] = right[rp]
+            rp += 1
+        else:
+            li[p] = left[lp]
+            lp += 1
+        p += 1
+    return li
 
 
 def code027():
     """
     Merge Sort
     マージソートアルゴリズム，再帰関数
-    :return:
     """
     n = int(input())
     li = list(map(int, input().split()))
     li = merge_sort(li)
+    print(*li)
 
+from time import time
+import random
 if __name__ == '__main__':
-    code026()
+    code027()
+    random.seed(0)
+    li = [random.randint(1, 1000000) for _ in range(1000000)]
+    start = time()
+    li1 = merge_sort(li)
+    end = time()
+    print(end - start)
+    li2 = sorted(li)
+    print(time() - end)
